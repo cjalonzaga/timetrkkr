@@ -1,0 +1,28 @@
+CREATE TABLE IF NOT EXISTS users(
+    id BIGINT AUTO_INCREMENT NOT NULL,
+    firstName VARCHAR(255) NOT NULL,
+    lastName VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    isActive BIT DEFAULT 1,
+    dateAdded DATE NOT NULL,
+    PRIMARY KEY(id),
+    timeRecordId BIGINT NOT NULL
+    FOREIGN KEY(timeRecordId)
+    REFERENCES time_records(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS time_records(
+   id BIGINT AUTO_INCREMENT NOT NULL,
+   dateLogin DATE NOT NULL,
+   timeIn TIME NOT NULL,
+   timeOut TIME NOT NULL,
+   PRIMARY KEY (id),
+   userId BIGINT NOT NULL,
+   FOREIGN KEY(userId)
+   REFERENCES users(id)
+   ON DELETE CASCADE
+   ON UPDATE CASCADE
+)
+
